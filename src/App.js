@@ -8,11 +8,11 @@ function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [historicalData, setHistoricalData] = useState([]);
-  const [unit, setUnit] = useState('metric');
+  const [unit] = useState('metric');
 
-  const toggleUnit = () => {
-    setUnit((prev) => (prev === 'metric' ? 'imperial' : 'metric'));
-  };
+  // const toggleUnit = () => {
+  //   setUnit((prev) => (prev === 'metric' ? 'imperial' : 'metric'));
+  // };
 
   const fetchWeather = async () => {
     if (!city) return;
@@ -71,35 +71,31 @@ function App() {
           placeholder="Enter city"
         />
         <button onClick={fetchWeather}>Search</button>
-        <button onClick={toggleUnit}>
+        {/* <button onClick={toggleUnit}>
           {unit === 'metric' ? '°F' : '°C'}
-        </button>
+        </button> */}
       </div>
 
       {weather && (
-        <div className="weather-box">
-          <h2>
-            {weather.name}, {weather.sys.country}
-          </h2>
-          <img
-            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-            alt="icon"
-          />
-          <p>{weather.weather[0].description}</p>
-          <p>
-            🌡 Temperature: {weather.main.temp}°{unit === 'metric' ? 'C' : 'F'}
-          </p>
-          <p>
-            💨 Wind: {weather.wind.speed} {unit === 'metric' ? 'm/s' : 'mph'}
-          </p>
-          <p>
-            🌅 Sunrise: {formatTime(weather.sys.sunrise, weather.timezone)}
-          </p>
-          <p>
-            🌇 Sunset: {formatTime(weather.sys.sunset, weather.timezone)}
-          </p>
-        </div>
-      )}
+  <div className="weather-box square-box">
+    <h2>
+      {weather.name}, {weather.sys.country}
+    </h2>
+    <img
+      src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+      alt="icon"
+    />
+    <p>{weather.weather[0].description}</p>
+    <p>🌡 Temperature: {weather.main.temp}°C</p>
+    <p>💧 Humidity: {weather.main.humidity}%</p>
+    <p>🌬 Wind Speed: {weather.wind.speed} m/s</p>
+    <p>🌫 Visibility: {weather.visibility / 1000} km</p>
+    <p>🔆 UV Index: {weather.uvi || 'N/A'}</p>
+    <p>🌅 Sunrise: {formatTime(weather.sys.sunrise, weather.timezone)}</p>
+    <p>🌇 Sunset: {formatTime(weather.sys.sunset, weather.timezone)}</p>
+  </div>
+)}
+
 
       {historicalData.length > 0 && (
         <WeatherChart data={historicalData} unit={unit} />

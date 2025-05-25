@@ -57,7 +57,12 @@ const WeatherChart = ({ data = [], unit }) => {
 
   return (
     <div style={{ maxWidth: "600px", margin: "20px auto" }}>
-      <Line data={chartData} options={options} />
+      <Line
+  data={chartData}
+  options={options}
+  height={1000} // increase this value
+  width={1500} // increase this value
+/>
     </div>
   );
 };
